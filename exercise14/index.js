@@ -19,7 +19,7 @@ function handleFormSubmit(event) {
   const li = document.createElement("li");
   li.innerHTML = `${
     username + " " + email + " " + phone
-  } <button class='delete-btn'>X</button> <button class='edit-btn'>Edit</button>`;
+  } <button class='delete-btn'>X</button> <button class='edit-btn' class="btn btn-primary" >Edit</button>`;
   ul.appendChild(li);
   const body = document.querySelector("body");
   body.appendChild(ul);
