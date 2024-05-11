@@ -10,7 +10,10 @@ function handleFormSubmit(event) {
       "https://crudcrud.com/api/047a0a7cb15743a0b800cc86c6a9363e/appointmentData",
       userDetails
     )
-    .then((response) => displayUserOnScreen(response.data))
+    .then((response) => {
+      //console.log(response.data);
+      displayUserOnScreen(response.data);
+    })
     .catch((error) => console.log(error));
 
   // Clearing the input fields
@@ -25,7 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
       "https://crudcrud.com/api/047a0a7cb15743a0b800cc86c6a9363e/appointmentData"
     )
     .then((response) => {
-      console.log(response);
+      //console.log(response);
       for (let i = 0; i < response.data.length; i++) {
         displayUserOnScreen(response.data[i]);
       }
@@ -37,6 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function displayUserOnScreen(userDetails) {
   const userItem = document.createElement("li");
+  userItem.setAttribute("id", userDetails._id);
   userItem.appendChild(
     document.createTextNode(
       `${userDetails.username} - ${userDetails.email} - ${userDetails.phone}`
@@ -55,15 +59,33 @@ function displayUserOnScreen(userDetails) {
   userList.appendChild(userItem);
 
   deleteBtn.addEventListener("click", function (event) {
+    const userId = event.target.parentElement.id;
+    deleteUserFromApi(userId);
     userList.removeChild(event.target.parentElement);
+
     localStorage.removeItem(userDetails.email);
   });
 
   editBtn.addEventListener("click", function (event) {
+    const userId = event.target.parentElement.id;
+
     userList.removeChild(event.target.parentElement);
     localStorage.removeItem(userDetails.email);
     document.getElementById("username").value = userDetails.username;
     document.getElementById("email").value = userDetails.email;
     document.getElementById("phone").value = userDetails.phone;
   });
+
+  function deleteUserFromApi(userId) {
+    axios
+      .delete(
+        `https://crudcrud.com/api/047a0a7cb15743a0b800cc86c6a9363e/appointmentData/${userId}`
+      )
+      .then((response) => {
+        console.log("sucess");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
