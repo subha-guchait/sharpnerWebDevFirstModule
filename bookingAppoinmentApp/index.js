@@ -7,7 +7,7 @@ function handleFormSubmit(event) {
   };
   axios
     .post(
-      "https://crudcrud.com/api/047a0a7cb15743a0b800cc86c6a9363e/appointmentData",
+      "https://crudcrud.com/api/5a62827498c14cc2b9a7b126ec99c43c/appointmentData",
       userDetails
     )
     .then((response) => {
@@ -25,7 +25,7 @@ function handleFormSubmit(event) {
 window.addEventListener("DOMContentLoaded", () => {
   axios
     .get(
-      "https://crudcrud.com/api/047a0a7cb15743a0b800cc86c6a9363e/appointmentData"
+      "https://crudcrud.com/api/5a62827498c14cc2b9a7b126ec99c43c/appointmentData"
     )
     .then((response) => {
       //console.log(response);
@@ -68,7 +68,7 @@ function displayUserOnScreen(userDetails) {
 
   editBtn.addEventListener("click", function (event) {
     const userId = event.target.parentElement.id;
-
+    deleteUserFromApi(userId);
     userList.removeChild(event.target.parentElement);
     localStorage.removeItem(userDetails.email);
     document.getElementById("username").value = userDetails.username;
@@ -79,7 +79,7 @@ function displayUserOnScreen(userDetails) {
   function deleteUserFromApi(userId) {
     axios
       .delete(
-        `https://crudcrud.com/api/047a0a7cb15743a0b800cc86c6a9363e/appointmentData/${userId}`
+        `https://crudcrud.com/api/5a62827498c14cc2b9a7b126ec99c43c/appointmentData/${userId}`
       )
       .then((response) => {
         console.log("sucess");

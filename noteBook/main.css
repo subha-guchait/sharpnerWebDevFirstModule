@@ -1,0 +1,15 @@
+.note-card {
+  display: block;
+  margin: 5px;
+  padding: 5px;
+  border: 5px solid aqua;
+  border-radius: 10px;
+  text-align: center;
+}
+#display-notes {
+  display: flex;
+}
+
+/* #add-note {
+  text-align: center;
+} */

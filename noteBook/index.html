@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoteBook</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <header>
+      <h1>NoteBook</h1>
+      <label for="fliter">Search Notes</label>
+      <input id="filter" name="" type="text" placeholder="Search notes..." />
+      <p>Total Notes: <span id="total-notes">0</span></p>
+      <p>Showing: <span id="showing-notes">0</span></p>
+    </header>
+    <div id="add-note">
+      <form>
+        <label for="title-input">Note Title:</label>
+        <input id="title-input" type="text" /><br />
+        <label for="desc-input">Note desc:</label>
+        <input type="text" name="" id="desc-input" /><br />
+        <button type="submit">Add to Book</button>
+      </form>
+    </div>
+    <div id="display-notes"></div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
