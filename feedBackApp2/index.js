@@ -10,44 +10,41 @@ const fiveStar = document.getElementById("fiveStar");
 
 form.addEventListener("submit", addFeedback);
 
-function addFeedback(event) {
+async function addFeedback(event) {
   event.preventDefault();
   const feedback = {
     name: nameInput.value,
     rating: ratingInput.value,
   };
 
-  axios
-    .post(
-      "https://crudcrud.com/api/1c7e5f7dd6c749f5a22fc00483f98b40/feedbackData",
+  try {
+    const response = await axios.post(
+      "https://crudcrud.com/api/3a6f1b3ab6af4eeab35b9c5501781ce4/feedbackData",
       feedback
-    )
-    .then((response) => {
-      //console.log(response.data);
-      displayRating(response.data);
-      ratingCount();
-    })
-    .catch((error) => console.log(error));
-
+    );
+    displayRating(response.data);
+    ratingCount();
+  } catch (error) {
+    console.log(error);
+  }
   nameInput.value = "";
   ratingInput.value = "";
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  axios
-    .get(
-      "https://crudcrud.com/api/1c7e5f7dd6c749f5a22fc00483f98b40/feedbackData"
-    )
-    .then((response) => {
-      //console.log(response);
-      for (let i = 0; i < response.data.length; i++) {
-        displayRating(response.data[i]);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  ratingCount();
+window.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const response = await axios.get(
+      "https://crudcrud.com/api/3a6f1b3ab6af4eeab35b9c5501781ce4/feedbackData"
+    );
+
+    for (let i = 0; i < response.data.length; i++) {
+      displayRating(response.data[i]);
+    }
+
+    ratingCount();
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 function displayRating(feedback) {
@@ -83,18 +80,15 @@ function displayRating(feedback) {
     ratingInput.value = feedback.rating;
   });
 
-  function deleteFeedbackFromApi(feedbackId) {
-    axios
-      .delete(
-        `https://crudcrud.com/api/1c7e5f7dd6c749f5a22fc00483f98b40/feedbackData/${feedbackId}`
-      )
-      .then((response) => {
-        ratingCount();
-        console.log("sucess");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  async function deleteFeedbackFromApi(feedbackId) {
+    try {
+      await axios.delete(
+        `https://crudcrud.com/api/3a6f1b3ab6af4eeab35b9c5501781ce4/feedbackData/${feedbackId}`
+      );
+      ratingCount();
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
@@ -106,11 +100,11 @@ function ratingCount() {
   let countOneStar = 0;
   axios
     .get(
-      "https://crudcrud.com/api/1c7e5f7dd6c749f5a22fc00483f98b40/feedbackData"
+      "https://crudcrud.com/api/3a6f1b3ab6af4eeab35b9c5501781ce4/feedbackData"
     )
     .then((response) => {
       for (let i = 0; i < response.data.length; i++) {
-        console.log(response.data[i].rating);
+        //console.log(response.data[i].rating);
         if (response.data[i].rating == 5) {
           countFiveStar++;
         } else if (response.data[i].rating == 4) {
@@ -134,6 +128,3 @@ function ratingCount() {
 // new Promise((resolve, reject) => {
 //   resolve("");
 // });
-
-console.log(a);
-let a = 10;

@@ -14,7 +14,7 @@ function addNote(event) {
   //displaying notes and post req on api
   axios
     .post(
-      "https://crudcrud.com/api/2e621ced46654461ad886d438601c7f7/notesData",
+      "https://crudcrud.com/api/784679fc840e4d55b2d10b3edd079311/notesData",
       notes
     )
     .then((response) => {
@@ -31,12 +31,14 @@ function addNote(event) {
 
 window.addEventListener("DOMContentLoaded", () => {
   axios
-    .get("https://crudcrud.com/api/2e621ced46654461ad886d438601c7f7/notesData")
+    .get("https://crudcrud.com/api/784679fc840e4d55b2d10b3edd079311/notesData")
     .then((response) => {
       //console.log(response);
       for (let i = 0; i < response.data.length; i++) {
         displayNote(response.data[i]);
       }
+      document.getElementById("showing-notes").textContent =
+        response.data.length;
     })
     .catch((err) => {
       console.log(err);
@@ -58,19 +60,23 @@ function displayNote(notes) {
 
   deleteBtn.addEventListener("click", function (event) {
     const notesId = event.target.parentElement.id;
-    axios
-      .delete(
-        `https://crudcrud.com/api/2e621ced46654461ad886d438601c7f7/notesData/${notesId}`
-      )
-      .then((response) => {
-        console.log("suceesfully deleted");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+    deleteNoteFromApi(notesId);
     displayNote.removeChild(event.target.parentElement);
   });
+}
+
+function deleteNoteFromApi(notesId) {
+  axios
+    .delete(
+      `https://crudcrud.com/api/784679fc840e4d55b2d10b3edd079311/notesData/${notesId}`
+    )
+    .then((response) => {
+      document.getElementById("showing-notes").textContent =
+        response.data.length;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 const filter = document.getElementById("filter");
